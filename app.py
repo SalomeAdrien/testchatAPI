@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 # Configurez votre clé OpenAI à partir de la variable d'environnement
 
-API_KEY = "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" # os.getenv("OPENAI_API_KEY")
+API_KEY = os.getenv("OPENAI_API_KEY")
 client = OpenAI(
   api_key=API_KEY
 )
