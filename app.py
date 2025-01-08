@@ -1,11 +1,15 @@
 from flask import Flask, render_template, request, jsonify
-import openai
+from openai import OpenAI
 import os
 
 app = Flask(__name__)
 
 # Configurez votre clé OpenAI à partir de la variable d'environnement
-openai.api_key = os.getenv("OPENAI_API_KEY")
+
+API_KEY = os.getenv("OPENAI_API_KEY")
+client = OpenAI(
+  api_key=API_KEY
+)
 
 @app.route("/")
 def home():
@@ -20,16 +24,15 @@ def chat():
             return jsonify({"error": "Message is required"}), 400
 
         # Appeler l'API OpenAI
-        response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",  # Ou "gpt-4" si vous y avez accès
-            messages=[
-                {"role": "system", "content": "You are a helpful assistant."},
-                {"role": "user", "content": user_input},
-            ]
+        completion = client.chat.completions.create(
+          model="gpt-4o-mini",
+          store=True,
+          messages=[
+            {"role": "user", "content": question}
+          ]
         )
-
         # Extraire et retourner la réponse
-        reply = response['choices'][0]['message']['content']
+        reply = completion.choices[0].message.content
         return jsonify({"reply": reply})
     
     except Exception as e:
