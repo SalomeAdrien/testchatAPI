@@ -28,7 +28,7 @@ def chat():
           model="gpt-4o-mini",
           store=True,
           messages=[
-            {"role": "user", "content": question}
+            {"role": "user", "content": user_input}
           ]
         )
         # Extraire et retourner la réponse
