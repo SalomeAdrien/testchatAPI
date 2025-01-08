@@ -19,7 +19,7 @@ document.getElementById("chat-form").addEventListener("submit", async function (
 
     const data = await response.json();
     if (data.reply) {
-        chatBox.innerHTML += `<p><strong>ChatGPT:</strong> ${data.reply}</p>`;
+        chatBox.innerHTML += `<p><strong>Assitant virtuel:</strong> ${data.reply}</p>`;
     } else {
         chatBox.innerHTML += `<p><strong>Error:</strong> ${data.error}</p>`;
     }
