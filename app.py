@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, render_template, request, jsonify
 import openai
 import os
 
@@ -7,14 +7,14 @@ app = Flask(__name__)
 # Configurez votre clé OpenAI à partir de la variable d'environnement
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
-@app.route("/", methods=["GET"])
+@app.route("/")
 def home():
-    return "ChatGPT API is running!"
+    return render_template("index.html")
 
 @app.route("/chat", methods=["POST"])
 def chat():
     try:
-        # Obtenir les données JSON de la requête
+        # Obtenir le message de l'utilisateur depuis le formulaire
         user_input = request.json.get("message", "")
         if not user_input:
             return jsonify({"error": "Message is required"}), 400
