@@ -31,6 +31,7 @@ def chat():
           model="gpt-4o-mini",
           store=True,
           messages=[
+            {"role": "system", "content": f"This conversation is with the assistant ID: {ASSISTANT_ID}"},
             {"role": "user", "content": user_input}
           ]
         )
