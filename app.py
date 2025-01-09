@@ -11,6 +11,9 @@ client = OpenAI(
   api_key=API_KEY
 )
 
+# Identifiant de l'assistant personnalisé
+ASSISTANT_ID = "asst_AB8UZivPRzzlqbD51AH5cApv"
+
 @app.route("/")
 def home():
     return render_template("index.html")
@@ -29,7 +32,8 @@ def chat():
           store=True,
           messages=[
             {"role": "user", "content": user_input}
-          ]
+          ],
+          functions={"assistant_id": ASSISTANT_ID}  # Utilisation de l'assistant personnalisé
         )
         # Extraire et retourner la réponse
         reply = completion.choices[0].message.content
