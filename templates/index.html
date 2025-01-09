@@ -9,12 +9,24 @@
 <body>
     <div class="container">
         <h1>Interface 21-22 de test d'assistant virtuel</h1>
-        <div id="chat-box"></div>
-        <form id="chat-form">
-            <input type="text" id="user-input" placeholder="Type your message..." required>
-            <button type="submit">Send</button>
+        
+        <!-- Boîte de chat -->
+        <div id="chat-box" role="log" aria-live="polite" aria-atomic="true"></div>
+
+        <!-- Formulaire d'entrée utilisateur -->
+        <form id="chat-form" aria-label="Formulaire de chat">
+            <label for="user-input" class="visually-hidden">Message</label>
+            <input 
+                type="text" 
+                id="user-input" 
+                placeholder="Type your message..." 
+                aria-label="Type your message" 
+                required
+            >
+            <button type="submit" id="send-button" aria-label="Send your message">Send</button>
         </form>
     </div>
+
     <script src="/static/script.js"></script>
 </body>
 </html>
