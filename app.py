@@ -1,12 +1,15 @@
 from flask import Flask, render_template, request, jsonify
-import openai
+from openai import OpenAI
 import os
 
 app = Flask(__name__)
 
 # Configurez votre clé OpenAI à partir de la variable d'environnement
+
 API_KEY = os.getenv("OPENAI_API_KEY")
-openai.api_key = API_KEY
+client = OpenAI(
+  api_key=API_KEY
+)
 
 # Identifiant de l'assistant personnalisé
 ASSISTANT_ID = "asst_AB8UZivPRzzlqbD51AH5cApv"
@@ -23,17 +26,17 @@ def chat():
         if not user_input:
             return jsonify({"error": "Message is required"}), 400
 
-        # Appeler l'API OpenAI pour l'assistant personnalisé
-        completion = openai.ChatCompletion.create(
-            model="gpt-4",  # Utilisez le modèle que votre assistant personnalisé supporte
-            messages=[
-                {"role": "user", "content": "Bonjour, quel est ton rôle ?"}
-            ],
-            assistant_id="asst_AB8UZivPRzzlqbD51AH5cApv"  # Spécifiez ici l'ID de votre assistant
+        # Appeler l'API OpenAI
+        completion = client.chat.completions.create(
+          model="gpt-4o",
+          store=True,
+          messages=[
+            {"role": "system", "content": f"This conversation is with the assistant ID: {ASSISTANT_ID}"},
+            {"role": "user", "content": user_input}
+          ]
         )
-                
         # Extraire et retourner la réponse
-        reply = completion['choices'][0]['message']['content']
+        reply = completion.choices[0].message.content
         return jsonify({"reply": reply})
     
     except Exception as e:
