@@ -33,7 +33,8 @@ def chat():
           messages=[
             {"role": "system", "content": f"This conversation is with the assistant ID: {ASSISTANT_ID}"},
             {"role": "user", "content": user_input}
-          ]
+          ],
+          assistant_id="asst_AB8UZivPRzzlqbD51AH5cApv"
         )
         # Extraire et retourner la réponse
         reply = completion.choices[0].message.content
