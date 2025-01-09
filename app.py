@@ -28,7 +28,7 @@ def chat():
 
         # Appeler l'API OpenAI
         completion = client.chat.completions.create(
-          model="gpt-4o-mini",
+          model="gpt-4o",
           store=True,
           messages=[
             {"role": "system", "content": f"This conversation is with the assistant ID: {ASSISTANT_ID}"},
